@@ -1,37 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form</title>
 </head>
 <body>
-    <h1>Register Here</h1>
-    <form method="post" action="rregister.js" target="fr1">
-        Name: <input type="text" target="fr1" name="name" placeholder="Enter your name" required><br><br>
-        Email: <input type="email" name="email" placeholder="Enter your email"required><br><br>
-        MobNo: <input type="number" name="number" placeholder="Enter your email" required><br><br>
-        DOB: <input type="date" name="dob" required><br><br>
-        <label for="gender">Gender:</label>
-        <input type="radio" name="gender" value="female" required>
-        <input type="radio" name="gender" value="male" required>
-        <label for="Branch">Branch</label>
-        <input type="dropdown" name="cse" value="cse" required>
-        <input type="checkbox" name="ece" value="ece" required>
-        <input type="checkbox" name="me" value="me" required>
-        <input type="checkbox" name="ce" value="ce" required>
+  <h1>Register Here</h1>
 
-        <label for="year">Year:</label>
-        Second Year:<input type="radio" name="second" value="second" required>
-        Third Year:<input type="radio" name="third" value="third" required>
-        
-        Year:<input type="radio" name="first" value="first" required><br><br> 
-        <label for="address">Address:</label>   
-        <Address></Address>  
+  <form method="post" action="register.php">
+    <!-- Name -->
+    <label for="name">Name:</label>
+    <input type="text" name="name" placeholder="Enter your name" required><br><br>
 
-        Password: <input type="password" name="password" placeholder="Enter your password" required><br><br>
-        <input type="submit" value="Register">
-        <input type="reset" value="Reset">
-    </form>
+    <!-- Email -->
+    <label for="email">Email:</label>
+    <input type="email" name="email" placeholder="Enter your email" required><br><br>
+
+    <!-- Mobile Number -->
+    <label for="number">Mobile No:</label>
+    <input type="number" name="number" placeholder="Enter your mobile number" required><br><br>
+
+    <!-- DOB -->
+    <label for="dob">DOB:</label>
+    <input type="date" name="dob" required><br><br>
+
+    <!-- Gender -->
+    <label>Gender:</label>
+    <input type="radio" name="gender" value="female" required> Female
+    <input type="radio" name="gender" value="male" required> Male
+    <br><br>
+
+    <!-- Branch -->
+    <label for="branch">Branch:</label>
+    <select name="branch" required>
+      <option value="">--Select Branch--</option>
+      <option value="cse">CSE</option>
+      <option value="ece">ECE</option>
+      <option value="me">ME</option>
+      <option value="ce">CE</option>
+    </select>
+    <br><br>
+
+    <!-- Year -->
+    <label for="year">Year:</label>
+    <input type="radio" name="year" value="first" required> First
+    <input type="radio" name="year" value="second" required> Second
+    <input type="radio" name="year" value="third" required> Third
+    <input type="radio" name="year" value="fourth" required> Fourth
+    <br><br>
+
+    <!-- Address -->
+    <label for="address">Address:</label><br>
+    <textarea name="address" rows="3" cols="30" placeholder="Enter your address"></textarea>
+    <br><br>
+
+    <!-- Password -->
+    <label for="password">Password:</label>
+    <input type="password" name="password" placeholder="Enter your password" required><br><br>
+
+    <!-- Submit / Reset -->
+    <input type="submit" value="Register">
+    <input type="reset" value="Reset">
+  </form>
 </body>
 </html>
