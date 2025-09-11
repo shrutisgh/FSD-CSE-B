@@ -1,0 +1,12 @@
+->>Advance feature of js
+     *ES6 feature
+     1>Arrownfunction
+     2>let and const
+     3>promises
+     4>Destructuring
+     5>Spread & operator
+     6>modules
+     7>filter , map and reduce
+     8>class
+     9>template litrals(` `)
+     10>fetch
