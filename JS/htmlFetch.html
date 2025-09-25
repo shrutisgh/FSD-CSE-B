@@ -1,0 +1,168 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Users</title>
+    <style>
+        table{
+            background-color: yellow;
+            color: red;
+            border: 2px solid green;
+            width: 80%;
+        }
+        th,td{
+            border: 1 px solid blue;
+            padding: 10px;
+            
+        }
+    </style>
+</head>
+<body>
+    <h1>List of users</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Email</th>
+                <th>IP</th>
+                <th>Mac Address</th>
+            </tr>
+        </thead>
+        <tbody>
+<script>
+        const url="https://dummyjson.com/users?limit=45";
+        const f1=async()=>{
+        try{
+     const res=await fetch(url);
+     const jsondata=await res.json();
+     jsondata.users.forEach((data)=>{
+         const row=document.createElement("tr")
+         const col1=document.createElement("td")
+         col1.innerText=data.firstName;
+         row.appendChild(col1);
+         const col2=document.createElement("td")
+         col2.innerText=data.email;
+         row.appendChild(col2);
+         const col3=document.createElement("td")
+         col3.innerText=data.ip;
+         row.appendChild(col3);
+         const col4=document.createElement("td")
+         col4.innerText=data.macAddress;
+         row.appendChild(col4);
+         console.log("name=",data.firstName);
+         console.log("email=",data.email);
+         console.log("ip=",data.ip);
+         console.log("Mac Address=",data.macAddress);
+        const tbody=document.querySelector("tbody");
+        tbody.appendChild(row);
+     })
+    }
+    catch(err){
+        console.error("Error=",err.message);
+    }
+    }
+    f1();
+    </script>
+        </tbody>
+    </table>
+    
+</body>
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIST OF USERS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>List of Users</h1>
+    <table id="userTable">
+        <tr>
+            <th>NAME</th>
+            <th>EMAIL</th>
+            <th>IP</th>
+            <th>MAC</th>
+        </tr>
+    </table>
+
+    <script>
+        const url = "https://dummyjson.com/users?limit=5";
+
+        const f1 = async () => {
+            try {
+                const res = await fetch(url);
+                const jsondata = await res.json();
+                const table = document.getElementById("userTable");
+
+                jsondata.users.forEach((user) => {
+                    const row = document.createElement("tr");
+
+                    const col1 = document.createElement("td");
+                    col1.innerText = user.firstName;
+                    row.appendChild(col1);
+
+                    const col2 = document.createElement("td");
+                    col2.innerText = user.email;
+                    row.appendChild(col2);
+
+                    const col3 = document.createElement("td");
+                    col3.innerText = user.ip;
+                    row.appendChild(col3);
+
+                    const col4 = document.createElement("td");
+                    col4.innerText = user.macAddress;
+                    row.appendChild(col4);
+
+                    table.appendChild(row);
+                });
+            } catch (err) {
+                console.error("Error:", err.message);
+            }
+        };
+
+        f1();
+    </script>
+</body>
+</html> -->

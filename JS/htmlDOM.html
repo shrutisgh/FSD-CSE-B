@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Paragraph Example</title>
+</head>
+<body>
+    <p>This is old paragraph</p> 
+    <button onclick="addpara()">ADD Paragraph</button>
+
+    <script>
+        function addpara() {
+            console.log("ADD paragraph");
+
+            // Create a new paragraph
+            const para = document.createElement("p");
+            para.textContent = "This is new paragraph";
+            para.style.background = "blue";
+            para.style.color = "white";
+
+            // Append it to the body
+            document.body.appendChild(para);
+        }
+    </script>
+</body>
+</html>

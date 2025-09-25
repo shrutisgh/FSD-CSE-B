@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Paragraph Example</title>
+</head>
+<body>
+     <div id="para"></div>
+    <p>This is old paragraph</p> 
+    <button onclick="addpara()">ADD Paragraph</button>
+
+    <!-- Container div to hold new paragraphs -->
+   
+
+    <script>
+        function addpara() {
+            console.log("ADD paragraph");
+
+            // Create a new paragraph
+            const newPara = document.createElement("p");
+            newPara.textContent = "This is new paragraph";
+            newPara.style.background = "blue";
+            newPara.style.color = "white";
+
+            // Append it to the container div
+            const container = document.getElementById("para");
+            container.appendChild(newPara);
+        }
+    </script>
+</body>
+</html>
