@@ -17,7 +17,7 @@
 
     table {
       width: 100%;
-      max-width: 800px;
+      max-width: 1000px;
       margin: 0 auto;
       border-collapse: collapse;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -35,7 +35,7 @@
     }
 
     tr:nth-child(even) {
-      background-color:palevioletred;
+      background-color: #f9f9f9;
     }
 
     tr:hover {
@@ -53,6 +53,19 @@
       height: auto;
       border-radius: 6px;
     }
+
+    .cart-btn {
+      padding: 6px 12px;
+      background-color: palevioletred;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .cart-btn:hover {
+      background-color: pink;
+    }
   </style>
 </head>
 <body>
@@ -65,20 +78,28 @@
         <th>Image</th>
         <th>Rating</th>
         <th>Price (Rupees)</th>
+        <th>Cooking Time (mins)</th>
+        <th>Cart</th>
       </tr>
     </thead>
     <tbody id="recipeBody">
-      <tr><td colspan="5">Loading...</td></tr>
+      <tr><td colspan="7">Loading...</td></tr>
     </tbody>
   </table>
 
   <script>
-    const url = "https://dummyjson.com/recipes?limit=20";
-    function getRandomPrice(min = 5, max = 500) {
-        return (Math.random() * (max - min) + min).toFixed(2);
-}
+    const url = "https://dummyjson.com/recipes?limit=10";
     const tableBody = document.getElementById("recipeBody");
-    const randomPrice = getRandomPrice(100, 1000);
+
+    // Random price generator
+    function getRandomPrice(min = 100, max = 1000) {
+      return (Math.random() * (max - min) + min).toFixed(2);
+    }
+
+    // Random cooking time generator
+    function getRandomTime(min = 10, max = 120) {
+      return Math.floor(Math.random() * (max - min + 1) + min);
+    }
 
     const loadRecipes = async () => {
       try {
@@ -89,7 +110,9 @@
         tableBody.innerHTML = "";
 
         recipes.forEach((recipe, index) => {
-            const randomPrice = getRandomPrice(100, 1000);
+          const randomPrice = getRandomPrice(100, 1000);
+          const randomTime = getRandomTime(10, 120);
+
           const row = document.createElement("tr");
           row.innerHTML = `
             <td>${index + 1}</td>
@@ -97,11 +120,19 @@
             <td><img src="${recipe.image}" alt="${recipe.name}"></td>
             <td>${recipe.rating}</td>
             <td>${randomPrice}</td>
+            <td>${randomTime}</td>
+            <td><button class="cart-btn">Add to Cart</button></td>
           `;
           tableBody.appendChild(row);
+
+        
+          const cartBtn = row.querySelector(".cart-btn");
+          cartBtn.addEventListener("click", () => {
+            alert(`"${recipe.name}" added to cart!`);
+          });
         });
       } catch (err) {
-        tableBody.innerHTML = `<tr><td colspan="5" class="error">Error: ${err.message}</td></tr>`;
+        tableBody.innerHTML = `<tr><td colspan="7" class="error">Error: ${err.message}</td></tr>`;
       }
     };
 
