@@ -1,0 +1,19 @@
+{
+  "name": "book-paral-app",
+  "version": "1.0.0",
+  "description": "my book app using parcel",
+  "license": "ISC",
+  "author": "my name",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html"
+  },
+  "dependencies": {
+    "babble": "^0.2.0",
+    "parcel": "^2.16.0",
+    "react": "^19.2.0"
+  }
+}
