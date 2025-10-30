@@ -1,0 +1,53 @@
+.card{
+  width:400px;
+  height:400px;
+  background-color:cyan;
+  color:black;
+  border-radius:10px;
+  box-shadow:0 4px 8px 0 rgba(0,0,0,0.2);
+  margin:auto;
+  padding:20px;
+  text-align:center;
+  transition:0.3s;
+}
+.book-list{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-around;
+
+}
+.header{
+  text-align:center;
+  background-color:#222;
+  color:white;
+  padding:10px;
+}
+.footer{
+  text-align:center;
+  background-color:#222;
+  color:white;
+  padding:10px;
+  position:fixed;
+  bottom:0;
+  width:100%;
+}
+.book-image{
+  width:200px;
+  height:250px;
+  object-fit:cover;
+}
+.display-card{
+  margin-top:20px;
+  display:flex;
+  justify-content:center;
+   align-items:center;
+  height:80vh;
+
+}
+.btn{
+  padding:10px 20px;
+  background-color:#eee;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+}
