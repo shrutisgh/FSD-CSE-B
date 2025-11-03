@@ -1,0 +1,117 @@
+/* .header{
+    background-color: #282c34;
+    min-height: 10vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    padding: 0 20px;
+}
+
+/* Basic Navbar Styling */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #222;
+  color: white;
+  padding: 20px 40px;
+}
+
+/* Logo text */
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Nav links container */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+  margin: 0;
+}
+
+/* Nav links */
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+/* Hover effect */
+.nav-links a:hover {
+  color: #ff9800;
+}
+
+/* Responsive (mobile view) */
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 100px;
+    margin-top: 10px;
+  }
+} */
+
+/* Navbar container */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* keep content aligned from left */
+  background-color: #222;
+  color:black;
+  padding: 10px 20px;
+  gap: 40px; /* space between logo and nav links */
+}
+
+/* Logo */
+.logo {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #ff9800;
+}
+
+/* Nav links container */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 50px;
+  margin: 0;
+  padding: 0;
+}
+
+/* Individual links */
+.nav-links a {
+  text-decoration: none;
+  color:black;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+/* Hover effect */
+.nav-links a:hover {
+  color: #ff9800;
+}
+
+/* Responsive for small screens */
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
