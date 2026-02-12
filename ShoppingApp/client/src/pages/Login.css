@@ -1,0 +1,111 @@
+/* Login.css */
+
+/* Page background */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f4f6fc; /* soft neutral tone to complement navbar */
+  min-height: 100vh;
+}
+
+/* Center card below navbar */
+.card {
+  background: #ffffff;
+  width: 400px;
+  margin: 5rem auto 0 auto; /* ensures spacing below navbar */
+  padding: 2.5rem 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Login title */
+.card h1 {
+  text-align: center;
+  color: #357abd; /* same tone as navbar */
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+/* Error message box */
+.error {
+  background-color: #ffe8e8;
+  color: #d9534f;
+  border-radius: 0.5rem;
+  padding: 0.7rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+/* Form styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+label {
+  font-weight: 500;
+  color: #333;
+  text-align: left;
+}
+
+/* Inputs */
+input {
+  padding: 0.8rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+}
+
+/* Login button */
+button {
+  background: linear-gradient(90deg, #4a90e2, #357abd); /* same gradient as navbar */
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.9rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background: linear-gradient(90deg, #5aa3f3, #3e8fd6);
+  transform: translateY(-2px);
+}
+
+/* Responsive for mobile */
+@media (max-width: 480px) {
+  .card {
+    width: 90%;
+    margin-top: 4rem;
+    padding: 2rem 1.5rem;
+  }
+
+  .card h1 {
+    font-size: 1.6rem;
+  }
+
+  input,
+  button {
+    font-size: 0.95rem;
+  }
+}
