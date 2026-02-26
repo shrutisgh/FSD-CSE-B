@@ -1,0 +1,28 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "user_101",
+      "email": "user101@example.com",
+      "age": 25,
+      "country": "India",
+      "isActive": true
+    },
+    {
+      "id": 2,
+      "username": "user_202",
+      "email": "user202@example.com",
+      "age": 30,
+      "country": "Canada",
+      "isActive": false
+    },
+    {
+      "id": 3,
+      "username": "user_303",
+      "email": "user303@example.com",
+      "age": 22,
+      "country": "Germany",
+      "isActive": true
+    }
+  ]
+}

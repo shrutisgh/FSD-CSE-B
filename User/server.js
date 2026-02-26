@@ -1,90 +1,25 @@
-// import http from "http";
-
-// const users = [
-//     { id: 1, name: "John Doe", email: "john@example.com" },
-//     { id: 2, name: "Jane Smith", email: "jane@example.com" },
-//     { id: 3, name: "Alice Johnson", email: "alice@example.com" }
-// ];
-
-// const server = http.createServer((req, res) => {
-
-//     const url = req.url;
-//     const method = req.method;
-
-//     // HOME
-//     if (url === "/" && method === "GET") {
-//         res.end("<h1>Home Page</h1>");
-//     }
-
-//     // GET ALL USERS
-//     else if (url === "/users" && method === "GET") {
-//         res.setHeader("Content-Type", "application/json");
-//         res.end(JSON.stringify(users));
-//     }
-
-//     // GET USER BY ID
-//     else if (url.startsWith("/users/") && method === "GET") {
-
-//     const id = parseInt(url.split("/")[2]);
-
-//     const user = users.find(u => u.id === id);
-
-//     if (!user) {
-//         res.statusCode = 404;
-//         return res.end("User Not Found");
-//     }
-
-//     res.setHeader("Content-Type", "application/json");
-//     res.end(JSON.stringify(user));
-// }
-
-//     // CREATE USER (dummy example)
-//     else if (url === "/createusers" && method === "POST") {
-//         res.statusCode = 201;
-//         res.end("User Created");
-//     }
-
-//     // PUT
-//     else if (url.startsWith("/users/") && method === "PUT") {
-//         res.end("Edit User");
-//     }
-
-//     // DELETE
-//     else if (url.startsWith("/users/") && method === "DELETE") {
-//         const id=url.split("/")[2];
-//         const userIdx=users.findIndex(u=>u.id===parseInt(id));
-//         if(!userIdx){
-//             res.statusCode=404;
-//             return res.end("User Not Found");
-//         }
-//         users.splice(userIdx,1);
-//         console.log(id," deleted");
-//         res.end(id+"User Deleted");
-//     }
-
-//     else {
-//         res.statusCode = 404;
-//         res.end("<h1>404 - Page Not Found</h1>");
-//     }
-
-// });
-
-// server.listen(4001, () => {
-//     console.log("🚀 Server running at http://localhost:4001");
-// });
-
-
-
-
 import http from "http";
+import { promises as fs } from "fs";
 
-let users = [
-    { id: 1, name: "John Doe", email: "john@example.com" },
-    { id: 2, name: "Jane Smith", email: "jane@example.com" },
-    { id: 3, name: "Alice Johnson", email: "alice@example.com" }
-];
+const PORT = 4001;
+const DATA_FILE = "data.json";
 
-const server = http.createServer((req, res) => {
+// ================= READ USERS =================
+async function readUsers() {
+    try {
+        const data = await fs.readFile(DATA_FILE, "utf-8");
+        return JSON.parse(data);
+    } catch (err) {
+        return []; // If file doesn't exist
+    }
+}
+
+// ================= WRITE USERS =================
+async function writeUsers(users) {
+    await fs.writeFile(DATA_FILE, JSON.stringify(users, null, 2));
+}
+
+const server = http.createServer(async (req, res) => {
 
     const url = req.url;
     const method = req.method;
@@ -93,6 +28,7 @@ const server = http.createServer((req, res) => {
 
     // ================= GET ALL USERS =================
     if (url === "/users" && method === "GET") {
+        const users = await readUsers();
         return res.end(JSON.stringify(users));
     }
 
@@ -100,6 +36,8 @@ const server = http.createServer((req, res) => {
     if (url.startsWith("/users/") && method === "GET") {
 
         const id = parseInt(url.split("/")[2]);
+        const users = await readUsers();
+
         const user = users.find(u => u.id === id);
 
         if (!user) {
@@ -114,17 +52,22 @@ const server = http.createServer((req, res) => {
     if (url === "/users" && method === "POST") {
 
         let body = "";
+        req.on("data", chunk => body += chunk);
 
-        req.on("data", chunk => {
-            body += chunk.toString();
-        });
+        req.on("end", async () => {
 
-        req.on("end", () => {
+            const users = await readUsers();
             const newUser = JSON.parse(body);
 
-            newUser.id = users.length > 0 ? users[users.length - 1].id + 1 : 1;
+            newUser.id = users.length > 0
+                ? users[users.length - 1].id + 1
+                : 1;
+
+            newUser.name = newUser.name || "Unnamed User";
+            newUser.email = newUser.email || "No Email";
 
             users.push(newUser);
+            await writeUsers(users);
 
             res.statusCode = 201;
             res.end(JSON.stringify({
@@ -140,30 +83,32 @@ const server = http.createServer((req, res) => {
     if (url.startsWith("/users/") && method === "PUT") {
 
         const id = parseInt(url.split("/")[2]);
-        const userIndex = users.findIndex(u => u.id === id);
-
-        if (userIndex === -1) {
-            res.statusCode = 404;
-            return res.end(JSON.stringify({ message: "User Not Found" }));
-        }
-
         let body = "";
 
-        req.on("data", chunk => {
-            body += chunk.toString();
-        });
+        req.on("data", chunk => body += chunk);
 
-        req.on("end", () => {
+        req.on("end", async () => {
+
+            const users = await readUsers();
+            const index = users.findIndex(u => u.id === id);
+
+            if (index === -1) {
+                res.statusCode = 404;
+                return res.end(JSON.stringify({ message: "User Not Found" }));
+            }
+
             const updatedData = JSON.parse(body);
 
-            users[userIndex] = {
-                ...users[userIndex],
+            users[index] = {
+                ...users[index],
                 ...updatedData
             };
 
+            await writeUsers(users);
+
             res.end(JSON.stringify({
                 message: "User Updated",
-                user: users[userIndex]
+                user: users[index]
             }));
         });
 
@@ -174,21 +119,23 @@ const server = http.createServer((req, res) => {
     if (url.startsWith("/users/") && method === "DELETE") {
 
         const id = parseInt(url.split("/")[2]);
-        const userIndex = users.findIndex(u => u.id === id);
+        const users = await readUsers();
 
-        if (userIndex === -1) {
+        const index = users.findIndex(u => u.id === id);
+
+        if (index === -1) {
             res.statusCode = 404;
             return res.end(JSON.stringify({ message: "User Not Found" }));
         }
 
-        const deletedUser = users.splice(userIndex, 1);
+        const deletedUser = users.splice(index, 1);
 
-        res.end(JSON.stringify({
+        await writeUsers(users);
+
+        return res.end(JSON.stringify({
             message: "User Deleted",
             user: deletedUser[0]
         }));
-
-        return;
     }
 
     // ================= 404 =================
@@ -197,7 +144,6 @@ const server = http.createServer((req, res) => {
 
 });
 
-server.listen(4001, () => {
-    console.log("🚀 Server running at http://localhost:4001");
+server.listen(PORT, () => {
+    console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
-
